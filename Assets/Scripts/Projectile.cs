@@ -9,7 +9,20 @@ public class Projectile : MonoBehaviour
 
     void Awake() => myRigidBody = GetComponent<Rigidbody2D>();
 
-    private void OnTriggerEnter2D(Collider2D other) {}
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        IDamageable damageable = other.GetComponent<IDamageable>();
 
-    void Start() => myRigidBody.velocity = transform.up * projectileSpeed;
+        if (damageable != null)
+        {
+            damageable.TakeDamage();
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        myRigidBody.velocity = transform.up * projectileSpeed;
+        Destroy(gameObject, 3f);
+    }
 }

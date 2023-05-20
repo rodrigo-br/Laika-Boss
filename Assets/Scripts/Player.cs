@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable, ICollisive
 {
+    [SerializeField] Transform healthBarPrefab;
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float rotateSpeed = 5f;
+    [SerializeField] int maxHealth = 30;
+    HealthSystem healthSystem;
     Shooter shooter;
     Vector2 inputValue = Vector2.zero;
     Rigidbody2D myRigidBody;
@@ -15,6 +19,21 @@ public class Player : MonoBehaviour
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         shooter = GetComponent<Shooter>();
+    }
+
+    void Start()
+    {
+        Transform healthBarTransform = Instantiate(healthBarPrefab, new Vector3(0, 0.1f), Quaternion.identity);
+        HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
+        healthSystem = new HealthSystem(maxHealth);
+
+        healthBar.Setup(healthSystem, this.transform);
+        healthBar.OnHealthReachesZero += HealthBar_OnHealthReachesZero;
+    }
+
+    void HealthBar_OnHealthReachesZero(object sender, System.EventArgs e)
+    {
+        Destroy(gameObject);
     }
 
     void FixedUpdate()
@@ -39,4 +58,14 @@ public class Player : MonoBehaviour
     void OnMove(InputValue value) => inputValue = value.Get<Vector2>();
 
     void OnFire(InputValue value) => shooter.IsFiring = value.isPressed;
+
+    public void TakeDamage()
+    {
+        healthSystem.Damage(10);
+    }
+
+    public void Collided()
+    {
+        healthSystem.Damage(5);
+    }
 }
