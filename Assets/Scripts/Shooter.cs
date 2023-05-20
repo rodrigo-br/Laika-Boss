@@ -5,7 +5,6 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
     [SerializeField] GameObject projectilePrefab;
-
     [SerializeField] float fireCooldown = 0.3f;
     bool finishfireCooldown = true;
     bool isFiring;
@@ -32,5 +31,4 @@ public class Shooter : MonoBehaviour
         }
         finishfireCooldown = true;
     }
-
 }

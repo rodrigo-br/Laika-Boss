@@ -14,13 +14,7 @@ public class ParallaxScroller : MonoBehaviour
     Vector2 offset;
     Material material;
 
-    void Awake()
-    {
-        material = GetComponent<Image>().material;
-    }
+    void Awake() => material = GetComponent<Image>()?.material;
 
-    void FixedUpdate()
-    {
-        material.mainTextureOffset += (moveSpeed * Time.deltaTime);
-    }
+    void FixedUpdate() => material.mainTextureOffset += (moveSpeed * Time.deltaTime);
 }

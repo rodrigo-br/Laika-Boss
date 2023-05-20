@@ -9,23 +9,12 @@ public class Player : MonoBehaviour
     [SerializeField] float rotateSpeed = 5f;
     Shooter shooter;
     Vector2 inputValue = Vector2.zero;
-    Vector2 deltaPosition;
     Rigidbody2D myRigidBody;
-    Vector2 minBounds;
-    Vector2 maxBounds;
-    Camera cam;
 
     void Awake()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         shooter = GetComponent<Shooter>();
-    }
-
-    void Start()
-    {
-        cam = Camera.main;
-        minBounds = cam.ViewportToWorldPoint(Vector2.zero);
-        maxBounds = cam.ViewportToWorldPoint(Vector2.one);
     }
 
     void FixedUpdate()
@@ -36,7 +25,7 @@ public class Player : MonoBehaviour
 
     void RotateSpriteToFollowMouse()
     {
-        Vector3 playerPos = cam.WorldToScreenPoint(this.transform.position);
+        Vector3 playerPos = Camera.main.WorldToScreenPoint(this.transform.position);
         Vector3 mousePos = Input.mousePosition - playerPos;
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         this.transform.rotation = Quaternion.RotateTowards(
@@ -47,16 +36,7 @@ public class Player : MonoBehaviour
 
     void Move() => myRigidBody.velocity += inputValue * moveSpeed;
 
-    void OnMove(InputValue value)
-    {
-        inputValue = value.Get<Vector2>();
-    }
+    void OnMove(InputValue value) => inputValue = value.Get<Vector2>();
 
-    void OnFire(InputValue value)
-    {
-        if (shooter != null)
-        {
-            shooter.IsFiring = value.isPressed;
-        }
-    }
+    void OnFire(InputValue value) => shooter.IsFiring = value.isPressed;
 }
