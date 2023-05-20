@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float rotateSpeed = 5f;
     [SerializeField] int maxHealth = 30;
+    CameraShake cameraShake;
+    HitEffects hitEffects;
     HealthSystem healthSystem;
     Shooter shooter;
     Vector2 inputValue = Vector2.zero;
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         shooter = GetComponent<Shooter>();
+        hitEffects = GetComponent<HitEffects>();
+        cameraShake = Camera.main.GetComponent<CameraShake>();
     }
 
     void Start()
@@ -59,13 +63,14 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
 
     void OnFire(InputValue value) => shooter.IsFiring = value.isPressed;
 
-    public void TakeDamage()
-    {
-        healthSystem.Damage(10);
-    }
+    public void TakeDamage() => Damaged(10);
 
-    public void Collided()
+    public void Collided() => Damaged(5);
+
+    void Damaged(int value)
     {
-        healthSystem.Damage(5);
+        healthSystem?.Damage(value);
+        hitEffects?.PlayHitExpossionEffect();
+        cameraShake?.Play();
     }
 }

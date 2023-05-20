@@ -5,7 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable, ICollisive
 {
     HealthSystem healthSystem;
+    HitEffects hitEffects;
 
+    void Awake()
+    {
+        hitEffects = GetComponent<HitEffects>();
+    }
     void Start()
     {
         healthSystem = new HealthSystem(20);
@@ -21,14 +26,14 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive
         }
     }
 
-    public void TakeDamage()
-    {
-        healthSystem.Damage(10);
-    }
+    public void TakeDamage() => Damaged(10);
 
-    public void Collided()
+    public void Collided() => Damaged(20);
+
+    void Damaged(int value)
     {
-        healthSystem.Damage(20);
+        healthSystem.Damage(value);
+        hitEffects.PlayHitExpossionEffect();
     }
 
     void OnTriggerEnter2D(Collider2D other)

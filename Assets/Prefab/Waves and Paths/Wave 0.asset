@@ -16,5 +16,10 @@ MonoBehaviour:
   - {fileID: 2763489339496661823, guid: 54dfc7252deca3341b9105a4303f4e4d, type: 3}
   - {fileID: 2763489339496661823, guid: 54dfc7252deca3341b9105a4303f4e4d, type: 3}
   - {fileID: 2763489339496661823, guid: 54dfc7252deca3341b9105a4303f4e4d, type: 3}
+  - {fileID: 2763489339496661823, guid: 54dfc7252deca3341b9105a4303f4e4d, type: 3}
+  - {fileID: 2763489339496661823, guid: 54dfc7252deca3341b9105a4303f4e4d, type: 3}
   pathPrefab: {fileID: 4803821728119233056, guid: 55a74ec7ed074f0439a61b7afe6a0dc0, type: 3}
-  moveSpeed: 5
+  moveSpeed: 7
+  timeBetweenEnemySpawns: 1
+  spawnTimeVariance: 0.5
+  minimumSpawnTime: 0.2
