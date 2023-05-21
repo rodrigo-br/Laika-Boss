@@ -822,8 +822,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveConfigs:
   - {fileID: 11400000, guid: 4c2d748cf8999334aa0eeeeecc80ab00, type: 2}
+  - {fileID: 11400000, guid: 563b4b7db9fe86e429790891857d5ed1, type: 2}
   - {fileID: 11400000, guid: 79700e6264c1b5946bb614e3814b5737, type: 2}
-  timeBetweenWaves: 2
+  - {fileID: 11400000, guid: e8c153f5753841f4d9846234498af645, type: 2}
+  timeBetweenWaves: 3
   deltaTimeBeetweenWaves: 0.5
 --- !u!4 &1206568517
 Transform:
@@ -980,7 +982,7 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 4704366132111338704, guid: f912a93ca9756e2448f4d0d3a81fabc7, type: 3}
   moveSpeed: 0.3
   rotateSpeed: 5
-  maxHealth: 30
+  maxHealth: 100
 --- !u!114 &1457908908
 MonoBehaviour:
   m_ObjectHideFlags: 0

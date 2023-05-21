@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8635354289585180107}
   - component: {fileID: 7448559742588425926}
   - component: {fileID: 2630491918412510890}
+  - component: {fileID: -6393370478255118465}
   m_Layer: 7
   m_Name: Enemy 0
   m_TagString: Untagged
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a3e58c3fe35ce4fbabe302b7692595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 80
 --- !u!60 &7448559742588425926
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -85,16 +87,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.28643608}
-      - {x: -0.6565699, y: 0.78472626}
-      - {x: -0.50372654, y: -0.028214172}
-      - {x: -0.86083883, y: -0.40728104}
-      - {x: -0.6783965, y: -0.7750379}
-      - {x: 0.015078425, y: -0.2540229}
-      - {x: 0.65574396, y: -0.76371133}
-      - {x: 0.8358599, y: -0.41376492}
-      - {x: 0.4973456, y: -0.021710806}
-      - {x: 0.6225906, y: 0.75074714}
+    - - {x: -0.17791931, y: 0.60317194}
+      - {x: -0.20190983, y: 0.22307058}
+      - {x: -0.6139025, y: 0.15057221}
+      - {x: -0.26107076, y: -0.14946806}
+      - {x: -0.38977966, y: -0.48348725}
+      - {x: 0.0005275039, y: -0.25421414}
+      - {x: 0.37304878, y: -0.4745912}
+      - {x: 0.2640447, y: -0.124644786}
+      - {x: 0.6322683, y: 0.1903106}
+      - {x: 0.20595555, y: 0.2376632}
+      - {x: 0.17822449, y: 0.5965631}
+      - {x: -0.007048701, y: 0.5130263}
 --- !u!114 &2630491918412510890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +112,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitExplosionEffect: {fileID: 7398352766543315446, guid: 9d0fe4f419c1a724abd5248841cd703b, type: 3}
+--- !u!114 &-6393370478255118465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2763489339496661823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2f115813520c64797e3e36c05939ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 5825625268040962544, guid: cc749af92a19ad5468daedb8746b7edf, type: 3}
+  fireCooldown: 1
 --- !u!1 &2763489340250615521
 GameObject:
   m_ObjectHideFlags: 0
