@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
     [SerializeField] GameObject projectilePrefab;
-    [SerializeField] float fireCooldown = 0.2f;
+    [Tooltip("Use a multiple of .2")][SerializeField] float fireCooldown = 0.2f;
     float fireCooldownDefaultValue;
     bool finishfireCooldown = true;
     bool isFiring;
@@ -22,10 +22,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        fireCooldownDefaultValue = fireCooldown;
-    }
+    void Start() => fireCooldownDefaultValue = fireCooldown;
 
     IEnumerator FireCoroutine()
     {
@@ -38,10 +35,7 @@ public class Shooter : MonoBehaviour
         finishfireCooldown = true;
     }
 
-    public void BuffFireCooldown()
-    {
-        fireCooldown /= 2f;
-    }
+    public void BuffFireCooldown() => fireCooldown /= 2f;
 
     public void ResetFireCooldown() => fireCooldown *= 2f;
 }

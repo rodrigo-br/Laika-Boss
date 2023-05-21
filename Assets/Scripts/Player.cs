@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
     Vector2 inputValue = Vector2.zero;
     Rigidbody2D myRigidBody;
 
+    #region Unity Methods
     void Awake()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
@@ -35,16 +36,17 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
         healthBar.OnHealthReachesZero += HealthBar_OnHealthReachesZero;
     }
 
-    void HealthBar_OnHealthReachesZero(object sender, System.EventArgs e)
-    {
-        Destroy(gameObject);
-    }
-
     void FixedUpdate()
     {
         Move();
         RotateSpriteToFollowMouse();
     }
+
+    void OnMove(InputValue value) => inputValue = value.Get<Vector2>();
+
+    void OnFire(InputValue value) => shooter.IsFiring = value.isPressed;
+
+    #endregion
 
     void RotateSpriteToFollowMouse()
     {
@@ -58,14 +60,6 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
     }
 
     void Move() => myRigidBody.velocity += inputValue * moveSpeed;
-
-    void OnMove(InputValue value) => inputValue = value.Get<Vector2>();
-
-    void OnFire(InputValue value) => shooter.IsFiring = value.isPressed;
-
-    public void TakeDamage() => Damaged(10);
-
-    public void Collided() => Damaged(5);
 
     public void Heal() => healthSystem.Heal(20);
 
@@ -81,10 +75,23 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
         shooter.ResetFireCooldown();
     }
 
+    void HealthBar_OnHealthReachesZero(object sender, System.EventArgs e)
+    {
+        Destroy(gameObject);
+    }
+
+    #region Interfaces Methods
+    public void TakeDamage() => Damaged(10);
+
+    public void Collided() => Damaged(5);
+
     void Damaged(int value)
     {
         healthSystem?.Damage(value);
         hitEffects?.PlayHitExpossionEffect();
         cameraShake?.Play();
     }
+
+    #endregion
+
 }

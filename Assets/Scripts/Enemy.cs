@@ -6,9 +6,12 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive
 {
     [SerializeField] float rotateSpeed = 5f;
     [SerializeField] GameObject drop;
+    [SerializeField] int dropChance = 10;
     HealthSystem healthSystem;
     HitEffects hitEffects;
     Player player;
+
+    #region Unity Methods
 
     void Awake()
     {
@@ -42,29 +45,6 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive
             rotateSpeed * Time.deltaTime);
     }
 
-    void HealthSystem_OnHealthChanged(object sender, int health)
-    {
-        if (health <= 0)
-        {
-            int value = Random.Range(0, 100);
-            if (value < 10)
-            {
-                Instantiate(drop, transform.position, Quaternion.identity);
-            }
-            Destroy(gameObject);
-        }
-    }
-
-    public void TakeDamage() => Damaged(10);
-
-    public void Collided() => Damaged(20);
-
-    void Damaged(int value)
-    {
-        healthSystem.Damage(value);
-        hitEffects.PlayHitExpossionEffect();
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         ICollisive collisive = other.GetComponent<ICollisive>();
@@ -78,5 +58,33 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive
     void OnDisable()
     {
         healthSystem.OnHealthChange -= HealthSystem_OnHealthChanged;
+    }
+
+    #endregion
+
+    #region Interfaces Methods
+    public void TakeDamage() => Damaged(10);
+
+    public void Collided() => Damaged(20);
+
+    void Damaged(int value)
+    {
+        healthSystem.Damage(value);
+        hitEffects.PlayHitExpossionEffect();
+    }
+
+    #endregion
+
+    void HealthSystem_OnHealthChanged(object sender, int health)
+    {
+        if (health <= 0)
+        {
+            int value = Random.Range(0, 100);
+            if (value < dropChance)
+            {
+                Instantiate(drop, transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
+        }
     }
 }
