@@ -67,6 +67,20 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
 
     public void Collided() => Damaged(5);
 
+    public void Heal() => healthSystem.Heal(20);
+
+    public void FireSpeed()
+    {
+        StartCoroutine(IncreaseFireRateRoutine());
+    }
+
+    IEnumerator IncreaseFireRateRoutine()
+    {
+        shooter.BuffFireCooldown();
+        yield return new WaitForSecondsRealtime(10f);
+        shooter.ResetFireCooldown();
+    }
+
     void Damaged(int value)
     {
         healthSystem?.Damage(value);

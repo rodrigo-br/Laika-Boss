@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable, ICollisive
 {
     [SerializeField] float rotateSpeed = 5f;
+    [SerializeField] GameObject drop;
     HealthSystem healthSystem;
     HitEffects hitEffects;
     Player player;
@@ -45,6 +46,11 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive
     {
         if (health <= 0)
         {
+            int value = Random.Range(0, 100);
+            if (value < 10)
+            {
+                Instantiate(drop, transform.position, Quaternion.identity);
+            }
             Destroy(gameObject);
         }
     }
