@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7448559742588425926}
   - component: {fileID: 2630491918412510890}
   - component: {fileID: -6393370478255118465}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Enemy 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,6 +63,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 70
   drop: {fileID: 3234911494145827759, guid: a27387b39fc44ff4fbec356c9e8fa647, type: 3}
+  dropChance: 10
+  isMainDimension: 1
 --- !u!60 &7448559742588425926
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5825625268040962544, guid: cc749af92a19ad5468daedb8746b7edf, type: 3}
   fireCooldown: 1
+  isIA: 1
+  isMainDimension: 1
 --- !u!1 &2763489340250615521
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2763489340250615520}
   - component: {fileID: 2763489340250615527}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: EnemySprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +203,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 42d27429b8d8e394287fa38337ffc8b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

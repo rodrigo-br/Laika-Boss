@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5825625268040962556}
   - component: {fileID: 5825625268040962559}
   - component: {fileID: 5825625268040962558}
+  - component: {fileID: 4891659636867945299}
   m_Layer: 6
   m_Name: PlayerProjectile
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cba32e63d047d95409f3ff7d5992c3fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9f30153c7eba34da310aaff8812ce4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee955373e02adc418f588181e6e6bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 25
+  projectileSpeed: 30
 --- !u!70 &5825625268040962559
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -113,8 +114,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.11, y: 0.35}
+  m_Offset: {x: -0.04, y: 0.1}
+  m_Size: {x: 0.06, y: 1.65}
   m_Direction: 0
 --- !u!50 &5825625268040962558
 Rigidbody2D:
@@ -137,3 +138,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!95 &4891659636867945299
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825625268040962544}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d3cb3949aa85374e86e37d77ddffe63, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -4,18 +4,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class Player : MonoBehaviour, IDamageable, ICollisive
+public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
 {
     [SerializeField] Transform healthBarPrefab;
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float rotateSpeed = 5f;
     [SerializeField] int maxHealth = 30;
+    [SerializeField] Animator assAnimator;
+    DimensionManager dimensionManager;
     CameraShake cameraShake;
     HitEffects hitEffects;
     HealthSystem healthSystem;
     Shooter shooter;
     Vector2 inputValue = Vector2.zero;
     Rigidbody2D myRigidBody;
+    public bool IsMainDimension { get; private set; }
 
     #region Unity Methods
     void Awake()
@@ -24,6 +27,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
         shooter = GetComponent<Shooter>();
         hitEffects = GetComponent<HitEffects>();
         cameraShake = Camera.main.GetComponent<CameraShake>();
+        dimensionManager = FindObjectOfType<DimensionManager>();
     }
 
     void Start()
@@ -34,6 +38,12 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
 
         healthBar.Setup(healthSystem, this.transform);
         healthBar.OnHealthReachesZero += HealthBar_OnHealthReachesZero;
+        dimensionManager.OnDimensionChange += DimensionManager_OnDimensionChange;
+    }
+
+    void DimensionManager_OnDimensionChange(object sender, bool value)
+    {
+        DimensionChecker();
     }
 
     void FixedUpdate()
@@ -59,7 +69,14 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
             rotateSpeed);
     }
 
-    void Move() => myRigidBody.velocity += inputValue * moveSpeed;
+    void Move()
+    {
+        myRigidBody.velocity += inputValue * moveSpeed;
+        if (myRigidBody.velocity.sqrMagnitude > 100f)
+        {
+            assAnimator.SetTrigger("Boosting");
+        }
+    }
 
     public void Heal() => healthSystem.Heal(20);
 
@@ -90,6 +107,12 @@ public class Player : MonoBehaviour, IDamageable, ICollisive
         healthSystem?.Damage(value);
         hitEffects?.PlayHitExpossionEffect();
         cameraShake?.Play();
+    }
+
+    public void DimensionChecker() 
+    {
+        IsMainDimension = dimensionManager.mainDimension;
+        this.gameObject.layer = LayerMask.NameToLayer(IsMainDimension ? "MainDimensionPlayer" : "OtherDimensionPlayer");
     }
 
     #endregion

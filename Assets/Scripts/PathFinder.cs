@@ -7,11 +7,13 @@ public class PathFinder : MonoBehaviour
     EnemySpawner enemySpawner;
     WaveConfigSO waveConfig;
     List<Transform> waypoints;
+    Enemy enemy;
     int waypointIndex = 0;
 
     void Awake()
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        enemy = GetComponent<Enemy>();
     }
 
     void Start()
@@ -23,7 +25,10 @@ public class PathFinder : MonoBehaviour
 
     void FixedUpdate()
     {
-        FollowPath();
+        if (enemy.isActive)
+        {
+            FollowPath();
+        }
     }
 
     void FollowPath()

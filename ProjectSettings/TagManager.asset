@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - Enemy
-  - 
-  - 
-  - 
+  - MainDimensionPlayer
+  - OtherDimensionPlayer
+  - MainDimensionEnemy
+  - OtherDimensionEnemy
+  - Confiner
   - 
   - 
   - 

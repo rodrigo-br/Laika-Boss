@@ -11,3 +11,10 @@ public interface ICollisive
 {
     void Collided();
 }
+
+public interface IDimensionTraveler
+{
+    bool IsMainDimension { get; }
+
+    void DimensionChecker();
+}
