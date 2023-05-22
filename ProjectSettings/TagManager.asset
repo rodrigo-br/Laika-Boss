@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: MainDimensionEnemy
+    uniqueID: 4263640979
+    locked: 0
+  - name: OtherDimensionEnemy
+    uniqueID: 4015304447
+    locked: 0
+  - name: Player
+    uniqueID: 502044597
+    locked: 0
+  - name: Explosions
+    uniqueID: 2246868227
+    locked: 0

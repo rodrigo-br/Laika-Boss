@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
 using System;
 
@@ -11,6 +12,12 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     [SerializeField] float rotateSpeed = 5f;
     [SerializeField] int maxHealth = 30;
     [SerializeField] Animator assAnimator;
+    [SerializeField] Sprite[] shipSprites;
+    [SerializeField] Light2D[] myFreeFormLights;
+    string[] layer = new string[] {"MainDimensionPlayer", "OtherDimensionPlayer"};
+    Color[] colors = new Color[] {Color.blue, Color.red};
+    Animator myAnimator;
+    SpriteRenderer mySpriteRenderer;
     DimensionManager dimensionManager;
     CameraShake cameraShake;
     HitEffects hitEffects;
@@ -28,6 +35,8 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
         hitEffects = GetComponent<HitEffects>();
         cameraShake = Camera.main.GetComponent<CameraShake>();
         dimensionManager = FindObjectOfType<DimensionManager>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+        myAnimator = GetComponent<Animator>();
     }
 
     void Start()
@@ -112,7 +121,14 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     public void DimensionChecker() 
     {
         IsMainDimension = dimensionManager.mainDimension;
-        this.gameObject.layer = LayerMask.NameToLayer(IsMainDimension ? "MainDimensionPlayer" : "OtherDimensionPlayer");
+        myAnimator.SetBool("isMainDimension", IsMainDimension);
+        myAnimator.SetTrigger("ChangeDimension");
+        int index = IsMainDimension ? 0 : 1;
+        foreach (Light2D freeFormLight in myFreeFormLights)
+        {
+            freeFormLight.color = colors[index];
+        }
+        this.gameObject.layer = LayerMask.NameToLayer(layer[index]);
     }
 
     #endregion

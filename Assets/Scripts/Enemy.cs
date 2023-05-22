@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
 {
@@ -8,6 +9,7 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     [SerializeField] GameObject drop;
     [SerializeField] int dropChance = 10;
     [SerializeField] bool isMainDimension = true;
+    [SerializeField] Light2D[] myFreeFormLights;
     public bool IsMainDimension { get => isMainDimension ; }
     DimensionManager dimensionManager;
     HealthSystem healthSystem;
@@ -88,6 +90,10 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     public void DimensionChecker() 
     {
         isActive = (IsMainDimension == dimensionManager.mainDimension);
+        foreach (Light2D freeFormLight in myFreeFormLights)
+        {
+            freeFormLight.gameObject.SetActive(isActive);
+        }
     }
 
     void Damaged(int value)

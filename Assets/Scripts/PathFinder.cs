@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
-    EnemySpawner enemySpawner;
+    EnemySpawner[] enemySpawner;
     WaveConfigSO waveConfig;
     List<Transform> waypoints;
     Enemy enemy;
     int waypointIndex = 0;
+    public int IdTracker
+    {
+        set
+        {
+            foreach (EnemySpawner es in enemySpawner)
+            {
+                if (es.IdTracker == value)
+                {
+                    waveConfig = es.CurrentWave;
+                    break ;
+                }
+            }
+            waypoints = waveConfig.GetWaypoints();
+            transform.position = waypoints[waypointIndex].position;
+        }
+    }
 
     void Awake()
     {
-        enemySpawner = FindObjectOfType<EnemySpawner>();
+        enemySpawner = FindObjectsOfType<EnemySpawner>();
         enemy = GetComponent<Enemy>();
-    }
-
-    void Start()
-    {
-        waveConfig = enemySpawner.CurrentWave;
-        waypoints = waveConfig.GetWaypoints();
-        transform.position = waypoints[waypointIndex].position;
     }
 
     void FixedUpdate()

@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour, IDimensionTraveler
     [SerializeField] float timeBetweenWaves = 5f;
     [SerializeField] float deltaTimeBeetweenWaves = 0.5f;
     [SerializeField] bool isMainDimension = false;
+    [SerializeField] int idTracker;
+    public int IdTracker { get { return idTracker; } }
     public bool IsMainDimension { get => isMainDimension ;}
     WaveConfigSO currentWave;
     public WaveConfigSO CurrentWave => currentWave;
@@ -32,14 +34,12 @@ public class EnemySpawner : MonoBehaviour, IDimensionTraveler
                 currentWave = wave;
                 for (int i = 0; i < currentWave.GetEnemyCount(); i++)
                 {
-                    while (dimensionManager.mainDimension == isMainDimension)
-                    {
-                        yield return new WaitForSecondsRealtime(0.2f);
-                    }
-                    Instantiate(currentWave.GetEnemyPrefab(i),
+                    yield return new WaitUntil(() => dimensionManager.mainDimension == isMainDimension);
+                    GameObject instance = Instantiate(currentWave.GetEnemyPrefab(i),
                                 currentWave.StartingWaypoint.position,
                                 Quaternion.identity,
                                 this.transform);
+                    instance.GetComponent<PathFinder>().IdTracker = idTracker;
                     yield return new WaitForSecondsRealtime(currentWave.GetRandomSpawnTime());
                 }
                 yield return new WaitForSecondsRealtime(timeBetweenWaves);
@@ -47,6 +47,8 @@ public class EnemySpawner : MonoBehaviour, IDimensionTraveler
             timeBetweenWaves = Mathf.Clamp(timeBetweenWaves - deltaTimeBeetweenWaves, 0f , float.MaxValue);
         }
     }
+
+
 
     public void DimensionChecker()
     {
