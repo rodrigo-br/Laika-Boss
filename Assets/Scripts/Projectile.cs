@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     DimensionManager dimensionManager;
     SFXManager sfxManager;
     [SerializeField] float projectileSpeed = 10f;
+    [SerializeField] int projectileDamage = 10;
+    [SerializeField] bool playSfx = true;
     Rigidbody2D myRigidBody;
     Animator myAnimator;
 
@@ -28,7 +30,7 @@ public class Projectile : MonoBehaviour
 
         if (damageable != null)
         {
-            damageable.TakeDamage();
+            damageable.TakeDamage(projectileDamage);
             Destroy(gameObject);
         }
     }
@@ -36,7 +38,10 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         myRigidBody.velocity = transform.up * projectileSpeed;
-        sfxManager.PlayShootingClip();
+        if (playSfx)
+        {
+            sfxManager.PlayShootingClip();
+        }
         Destroy(gameObject, 3f);
     }
 }

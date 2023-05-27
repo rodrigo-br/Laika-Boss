@@ -5,7 +5,6 @@ using UnityEngine.Rendering.Universal;
 
 public class BuffItem : MonoBehaviour
 {
-    [SerializeField] Light2D myLight;
     SFXManager sfxManager;
     System.Action[] buffs;
     Player player;
@@ -25,7 +24,6 @@ public class BuffItem : MonoBehaviour
     void Start()
     {
         defaultScale = this.transform.localScale.x;
-        defaultLightIntensity = myLight.intensity;
     }
 
     void FixedUpdate()
@@ -33,7 +31,6 @@ public class BuffItem : MonoBehaviour
         if (growing)
         {
             this.transform.localScale += (Vector3.one * 0.01f);
-            myLight.intensity = Mathf.Clamp(myLight.intensity + 0.003f, 0, defaultLightIntensity);
             if (this.transform.localScale.x > defaultScale)
             {
                 growing = false;
@@ -42,7 +39,6 @@ public class BuffItem : MonoBehaviour
         else
         {
             this.transform.localScale -= (Vector3.one * 0.01f);
-            myLight.intensity = Mathf.Clamp(myLight.intensity - 0.003f, 0.1f, defaultLightIntensity);
             if (this.transform.localScale.x < defaultScale - 0.3f)
             {
                 growing = true;

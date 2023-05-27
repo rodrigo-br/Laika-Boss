@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void TakeDamage();
+    void TakeDamage(int value);
 }
 
 public interface ICollisive

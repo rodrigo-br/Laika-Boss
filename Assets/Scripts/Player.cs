@@ -26,6 +26,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     Vector2 inputValue = Vector2.zero;
     Rigidbody2D myRigidBody;
     public bool IsMainDimension { get; private set; }
+    BulletHellShooter bulletHellShooter;
 
     #region Unity Methods
     void Awake()
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
         dimensionManager = FindObjectOfType<DimensionManager>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
+        bulletHellShooter = GetComponent<BulletHellShooter>();
     }
 
     void Start()
@@ -107,7 +109,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     }
 
     #region Interfaces Methods
-    public void TakeDamage() => Damaged(10);
+    public void TakeDamage(int value) => Damaged(value);
 
     public void Collided() => Damaged(5);
 
@@ -121,6 +123,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     public void DimensionChecker() 
     {
         IsMainDimension = dimensionManager.mainDimension;
+        bulletHellShooter.InstantiateBullets(-transform.up);
         myAnimator.SetBool("isMainDimension", IsMainDimension);
         myAnimator.SetTrigger("ChangeDimension");
         int index = IsMainDimension ? 0 : 1;

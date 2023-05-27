@@ -83,11 +83,11 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     #endregion
 
     #region Interfaces Methods
-    public void TakeDamage() => Damaged(10);
+    public void TakeDamage(int value) => Damaged(value);
 
     public void Collided() => Damaged(20);
 
-    public void DimensionChecker() 
+    public void DimensionChecker()
     {
         isActive = (IsMainDimension == dimensionManager.mainDimension);
         foreach (Light2D freeFormLight in myFreeFormLights)
@@ -115,5 +115,10 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
             }
             Destroy(gameObject);
         }
+    }
+
+    void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Colidiu com partícula");
     }
 }
