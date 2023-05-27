@@ -23,6 +23,7 @@ public class CameraShake : MonoBehaviour
         float elapsedTime = 0;
         while (elapsedTime < shakeDuration)
         {
+            yield return new WaitUntil(() => !PauseManager.IsPaused);
             transform.position = initialPosition + (Vector3)Random.insideUnitCircle * shakeMagnitude;
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SFXManager : MonoBehaviour
 {
@@ -8,11 +9,25 @@ public class SFXManager : MonoBehaviour
     [SerializeField] AudioClip[] explosionClip;
     [SerializeField] AudioClip healClip;
     [SerializeField] AudioClip reloadClip;
-    [Range(0f, 1f)][SerializeField] float sfxVolume = 1f;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider sfxSlider; 
+    AudioSource myAudioSource;
+
+    void Awake()
+    {
+        myAudioSource = GetComponent<AudioSource>();
+    }   
+
+    void Start()
+    {
+        musicSlider.onValueChanged.AddListener(_ => myAudioSource.volume = musicSlider.value);
+        myAudioSource.volume = musicSlider.value;
+        myAudioSource.Play();
+    }
 
     void PlayClip(AudioClip clip)
     {
-        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, sfxVolume);
+        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, sfxSlider.value);
     }
 
     public void PlayShootingClip()

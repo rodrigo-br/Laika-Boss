@@ -51,7 +51,7 @@ public class Shooter : MonoBehaviour, IDimensionTraveler
     IEnumerator FireCoroutine()
     {
         finishfireCooldown = false;
-        while (isFiring)
+        while (isFiring && !PauseManager.IsPaused)
         {
             GameObject instance = Instantiate(projectilePrefab, transform.position, transform.rotation);
             if (!isIA)
