@@ -21,12 +21,12 @@ public class PlayerPrefsManager : MonoBehaviour
             sfxSlider.value = PlayerPrefs.GetFloat(sfxVolumePlayerPrefKey);
         }
         musicSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(musicVolumePlayerPrefKey, musicSlider.value));
-        sfxSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(sfxVolumePlayerPrefKey, musicSlider.value));
+        sfxSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(sfxVolumePlayerPrefKey, sfxSlider.value));
     }
 
     void OnDisable()
     {
         PlayerPrefs.SetFloat(musicVolumePlayerPrefKey, musicSlider.value);
-        PlayerPrefs.SetFloat(sfxVolumePlayerPrefKey, musicSlider.value);
+        PlayerPrefs.SetFloat(sfxVolumePlayerPrefKey, sfxSlider.value);
     }
 }
