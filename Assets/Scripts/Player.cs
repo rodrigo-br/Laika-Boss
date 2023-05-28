@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
 using System;
@@ -107,6 +108,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     void HealthBar_OnHealthReachesZero(object sender, System.EventArgs e)
     {
         Destroy(gameObject);
+        SceneManager.LoadScene(2);
     }
 
     #region Interfaces Methods
@@ -136,6 +138,11 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     }
 
     #endregion
+
+    void OnDisable()
+    {
+        dimensionManager.OnDimensionChange -= DimensionManager_OnDimensionChange;
+    }
 
     public void shieldOn() => shield.SetActive(true);
 
