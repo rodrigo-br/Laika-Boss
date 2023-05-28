@@ -16,11 +16,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField][Range(0.05f, 0.1f)] float openDialogueSpeed = 0.07f;
     [SerializeField][Range(0.05f, 0.1f)] float closeDialogueSpeed = 0.1f;
     [SerializeField] float tutorialChatSpeed = 5f;
-    string playerPrefsTutorialKey = "Tutorial";
+    string playerPrefsTutorialKey = "tutorial";
     Vector3 grow;
     Vector3 shrink;
     PauseManager pauseManager;
     int dialogueIndex = 0;
+    public static bool isTutorialing { get; private set; } = false;
 
     void Awake()
     {
@@ -56,6 +57,7 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TutorialCoroutine()
     {
         pauseManager.Pause();
+        isTutorialing = true;
         for (int i = 0; i < dialogues.Length; i++)
         {
             CallNextDialogue();
@@ -63,6 +65,7 @@ public class DialogueManager : MonoBehaviour
             CloseDialogueBox();
             yield return new WaitForSecondsRealtime(0.3f);
         }
+        isTutorialing = false;
         pauseManager.Resume();
     }
 

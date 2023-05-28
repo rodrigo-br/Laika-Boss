@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
@@ -28,6 +29,8 @@ public class PauseManager : MonoBehaviour
 
     void SetPauseState()
     {
+        if (DialogueManager.isTutorialing) { return; }
+
         if (IsPaused)
         {
             Resume();
@@ -45,15 +48,23 @@ public class PauseManager : MonoBehaviour
 
     public void Pause(bool activeMenu = false)
     {
-        Time.timeScale = 0;
-        IsPaused = true;
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(SceneManager.sceneCountInBuildSettings - 2);
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 2)
+        {
+            Time.timeScale = 0;
+            IsPaused = true;
+        }
         menu.SetActive(activeMenu);
     }
 
     public void Resume()
     {
-        Time.timeScale = 1;
-        IsPaused = false;
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 2)
+        {
+            Time.timeScale = 1;
+            IsPaused = false;
+        }
         menu.SetActive(false);
     }
 }

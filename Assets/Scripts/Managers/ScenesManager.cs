@@ -13,11 +13,11 @@ public class ScenesManager : MonoBehaviour
     {
         if (scene0Button != null)
         {
-            scene0Button.onClick.AddListener(() => SceneManager.LoadScene(0));
+            scene0Button.onClick.AddListener(() => { SceneManager.LoadScene(0); });
         }
         if (scene1Button != null)
         {
-            scene1Button.onClick.AddListener(() => SceneManager.LoadScene(1));
+            scene1Button.onClick.AddListener(() => { SceneManager.LoadScene(1); });
         }
     }
 }
