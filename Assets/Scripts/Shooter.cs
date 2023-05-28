@@ -51,14 +51,14 @@ public class Shooter : MonoBehaviour, IDimensionTraveler
     IEnumerator FireCoroutine()
     {
         finishfireCooldown = false;
-        while (isFiring && !PauseManager.IsPaused)
+        while (isFiring)
         {
             GameObject instance = Instantiate(projectilePrefab, transform.position, transform.rotation);
             if (!isIA)
             {
                 instance.layer = LayerMask.NameToLayer(dimensionManager.mainDimension ? "MainDimensionPlayer" : "OtherDimensionPlayer");
             }
-            yield return new WaitForSecondsRealtime(fireCooldown);
+            yield return new WaitForSeconds(fireCooldown);
         }
         finishfireCooldown = true;
     }

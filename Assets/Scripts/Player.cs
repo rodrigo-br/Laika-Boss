@@ -14,6 +14,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     [SerializeField] Animator assAnimator;
     [SerializeField] Sprite[] shipSprites;
     [SerializeField] Light2D[] myFreeFormLights;
+    [SerializeField] GameObject shield;
     string[] layer = new string[] {"MainDimensionPlayer", "OtherDimensionPlayer"};
     Color[] colors = new Color[] {Color.blue, Color.red};
     Animator myAnimator;
@@ -131,9 +132,11 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
         {
             freeFormLight.color = colors[index];
         }
-        this.gameObject.layer = LayerMask.NameToLayer(layer[index]);
+        this.gameObject.layer = shield.layer = LayerMask.NameToLayer(layer[index]);
     }
 
     #endregion
+
+    public void shieldOn() => shield.SetActive(true);
 
 }

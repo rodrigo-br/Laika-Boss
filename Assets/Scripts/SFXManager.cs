@@ -9,13 +9,16 @@ public class SFXManager : MonoBehaviour
     [SerializeField] AudioClip[] explosionClip;
     [SerializeField] AudioClip healClip;
     [SerializeField] AudioClip reloadClip;
+    [SerializeField] AudioClip dimensionChange;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider; 
     AudioSource myAudioSource;
+    DimensionManager dimensionManager;
 
     void Awake()
     {
         myAudioSource = GetComponent<AudioSource>();
+        dimensionManager = FindObjectOfType<DimensionManager>();
     }   
 
     void Start()
@@ -23,6 +26,7 @@ public class SFXManager : MonoBehaviour
         musicSlider.onValueChanged.AddListener(_ => myAudioSource.volume = musicSlider.value);
         myAudioSource.volume = musicSlider.value;
         myAudioSource.Play();
+        dimensionManager.OnDimensionChange += PlayDimensionChangeClip;
     }
 
     void PlayClip(AudioClip clip)
@@ -59,6 +63,14 @@ public class SFXManager : MonoBehaviour
         if (healClip != null)
         {
             PlayClip(healClip);
+        }
+    }
+
+    public void PlayDimensionChangeClip(object sender, bool value)
+    {
+        if (dimensionChange != null)
+        {
+            PlayClip(dimensionChange);
         }
     }
 }
