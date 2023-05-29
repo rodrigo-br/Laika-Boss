@@ -14,10 +14,8 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     [SerializeField] int maxHealth = 30;
     [SerializeField] Animator assAnimator;
     [SerializeField] Sprite[] shipSprites;
-    [SerializeField] Light2D[] myFreeFormLights;
     [SerializeField] GameObject shield;
     string[] layer = new string[] {"MainDimensionPlayer", "OtherDimensionPlayer"};
-    Color[] colors = new Color[] {Color.blue, Color.red};
     Animator myAnimator;
     SpriteRenderer mySpriteRenderer;
     DimensionManager dimensionManager;
@@ -131,10 +129,6 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
         myAnimator.SetBool("isMainDimension", IsMainDimension);
         myAnimator.SetTrigger("ChangeDimension");
         int index = IsMainDimension ? 0 : 1;
-        foreach (Light2D freeFormLight in myFreeFormLights)
-        {
-            freeFormLight.color = colors[index];
-        }
         this.gameObject.layer = shield.layer = LayerMask.NameToLayer(layer[index]);
     }
 

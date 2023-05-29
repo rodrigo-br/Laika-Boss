@@ -48,8 +48,6 @@ public class PauseManager : MonoBehaviour
 
     public void Pause(bool activeMenu = false)
     {
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log(SceneManager.sceneCountInBuildSettings - 2);
         if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 2)
         {
             Time.timeScale = 0;
