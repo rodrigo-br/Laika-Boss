@@ -48,7 +48,6 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                PlayerPrefs.SetInt(PlayerPrefsManager.CONST_TUTORIAL_KEY, 0);
                 StartCoroutine(DialogueDuringGame());
             }
         }
