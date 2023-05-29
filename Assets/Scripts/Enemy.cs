@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     [SerializeField] int dropChance = 10;
     [SerializeField] bool isMainDimension = true;
     [SerializeField] Light2D myLight;
+    float defaultIntensity;
     public bool IsMainDimension { get => isMainDimension ; }
     DimensionManager dimensionManager;
     HealthSystem healthSystem;
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     void Start()
     {
         healthSystem = new HealthSystem(20);
-
+        defaultIntensity = myLight.intensity;
         healthSystem.OnHealthChange += HealthSystem_OnHealthChanged;
         if (player == null) { return; }
         Vector2 target = player.transform.position - this.transform.position;
@@ -90,7 +91,7 @@ public class Enemy : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     public void DimensionChecker()
     {
         isActive = (IsMainDimension == dimensionManager.mainDimension);
-        myLight.gameObject.SetActive(isActive);
+        myLight.intensity = (isActive == true) ? defaultIntensity : defaultIntensity / 5;
     }
 
     void Damaged(int value)
