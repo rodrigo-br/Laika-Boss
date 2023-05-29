@@ -8,41 +8,54 @@ public class PlayerPrefsManager : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Toggle tutorial;
-    Image toggleImage;
+    [SerializeField] Toggle nicosHelp;
+    Image tutorialImage;
+    Image nicosHelpImage;
     Color toggleColor = new Color(0.5f, 0, 1f);
-    string musicVolumePlayerPrefKey = "musicVolume";
-    string sfxVolumePlayerPrefKey = "sfxVolume";
-    string tutorialPlayerPrefKey = "tutorial";
+    public const string CONST_MUSIC_KEY = "musicVolume";
+    public const string CONST_SFX_KEY = "sfxVolume";
+    public const string CONST_TUTORIAL_KEY = "tutorial";
+    public const string CONST_NICOHELP_KEY = "nicosHelp";
+    public const string CONST_NICO_KEY = "nico";
 
     void Awake()
     {
-        toggleImage = tutorial.GetComponentInChildren<Image>();
+        tutorialImage = tutorial.GetComponentInChildren<Image>();
+        nicosHelpImage = nicosHelp.GetComponentInChildren<Image>();
+        tutorialImage.color = nicosHelpImage.color = toggleColor;
     }
 
     void Start()
     {
-        if (PlayerPrefs.HasKey(musicVolumePlayerPrefKey))
+        if (PlayerPrefs.HasKey(CONST_MUSIC_KEY))
         {
-            musicSlider.value = PlayerPrefs.GetFloat(musicVolumePlayerPrefKey);
+            musicSlider.value = PlayerPrefs.GetFloat(CONST_MUSIC_KEY);
         }
-        if (PlayerPrefs.HasKey(sfxVolumePlayerPrefKey))
+        if (PlayerPrefs.HasKey(CONST_SFX_KEY))
         {
-            sfxSlider.value = PlayerPrefs.GetFloat(sfxVolumePlayerPrefKey);
+            sfxSlider.value = PlayerPrefs.GetFloat(CONST_SFX_KEY);
         }
-        if (PlayerPrefs.HasKey(tutorialPlayerPrefKey))
+        if (PlayerPrefs.HasKey(CONST_TUTORIAL_KEY))
         {
-            tutorial.isOn = PlayerPrefs.GetInt(tutorialPlayerPrefKey) == 1 ? true : false;
+            tutorial.isOn = PlayerPrefs.GetInt(CONST_TUTORIAL_KEY) == 1 ? true : false;
         }
-        musicSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(musicVolumePlayerPrefKey, musicSlider.value));
-        sfxSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(sfxVolumePlayerPrefKey, sfxSlider.value));
-        tutorial.onValueChanged.AddListener(_ => PlayerPrefs.SetInt(tutorialPlayerPrefKey, tutorial.isOn == true ? 1 : 0));
-        tutorial.onValueChanged.AddListener(_ => toggleImage.color = tutorial.isOn == true ? toggleColor : Color.gray);
+        if (PlayerPrefs.HasKey(CONST_NICOHELP_KEY))
+        {
+            nicosHelp.isOn = PlayerPrefs.GetInt(CONST_NICOHELP_KEY) == 1 ? true : false;
+        }
+        musicSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(CONST_MUSIC_KEY, musicSlider.value));
+        sfxSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(CONST_SFX_KEY, sfxSlider.value));
+        tutorial.onValueChanged.AddListener(_ => PlayerPrefs.SetInt(CONST_TUTORIAL_KEY, tutorial.isOn == true ? 1 : 0));
+        nicosHelp.onValueChanged.AddListener(_ => PlayerPrefs.SetInt(CONST_NICOHELP_KEY, nicosHelp.isOn == true ? 1 : 0));
+        tutorial.onValueChanged.AddListener(_ => tutorialImage.color = tutorial.isOn == true ? toggleColor : Color.gray);
+        nicosHelp.onValueChanged.AddListener(_ => nicosHelpImage.color = nicosHelp.isOn == true ? toggleColor : Color.gray);
     }
 
     void OnDisable()
     {
-        PlayerPrefs.SetFloat(musicVolumePlayerPrefKey, musicSlider.value);
-        PlayerPrefs.SetFloat(sfxVolumePlayerPrefKey, sfxSlider.value);
-        PlayerPrefs.SetInt(tutorialPlayerPrefKey, tutorial.isOn == true ? 1 : 0);
+        PlayerPrefs.SetFloat(CONST_MUSIC_KEY, musicSlider.value);
+        PlayerPrefs.SetFloat(CONST_SFX_KEY, sfxSlider.value);
+        PlayerPrefs.SetInt(CONST_TUTORIAL_KEY, tutorial.isOn == true ? 1 : 0);
+        PlayerPrefs.SetInt(CONST_NICOHELP_KEY, nicosHelp.isOn == true ? 1 : 0);
     }
 }

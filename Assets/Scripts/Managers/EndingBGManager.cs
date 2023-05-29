@@ -8,7 +8,6 @@ public class EndingBGManager : MonoBehaviour
     [SerializeField] Sprite endingWithNico;
     [SerializeField] Sprite endingWithoutNico;
     Image myImage;
-    string PlayerPrefsNicoKey = "nico";
 
     void Awake()
     {
@@ -17,6 +16,6 @@ public class EndingBGManager : MonoBehaviour
 
     void Start()
     {
-        myImage.sprite = PlayerPrefs.GetInt(PlayerPrefsNicoKey) == 1 ? endingWithNico : endingWithoutNico;
+        myImage.sprite = PlayerPrefs.GetInt(PlayerPrefsManager.CONST_NICO_KEY) == 1 ? endingWithNico : endingWithoutNico;
     }
 }

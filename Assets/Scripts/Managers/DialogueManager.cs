@@ -16,7 +16,6 @@ public class DialogueManager : MonoBehaviour
     [SerializeField][Range(0.05f, 0.1f)] float openDialogueSpeed = 0.07f;
     [SerializeField][Range(0.05f, 0.1f)] float closeDialogueSpeed = 0.1f;
     [SerializeField] float tutorialChatSpeed = 5f;
-    string playerPrefsTutorialKey = "tutorial";
     Vector3 grow;
     Vector3 shrink;
     PauseManager pauseManager;
@@ -42,20 +41,33 @@ public class DialogueManager : MonoBehaviour
         dialogueBox.transform.localScale = Vector3.zero;
         if (pauseManager != null)
         {
-            if (PlayerPrefs.HasKey(playerPrefsTutorialKey) && PlayerPrefs.GetInt(playerPrefsTutorialKey) == 0)
+            if (PlayerPrefs.HasKey(PlayerPrefsManager.CONST_TUTORIAL_KEY) &&
+                PlayerPrefs.GetInt(PlayerPrefsManager.CONST_TUTORIAL_KEY) == 0)
             {
                 return ;
             }
             else
             {
-                PlayerPrefs.SetInt(playerPrefsTutorialKey, 0);
-                StartCoroutine(TutorialCoroutine());
+                PlayerPrefs.SetInt(PlayerPrefsManager.CONST_TUTORIAL_KEY, 0);
+                StartCoroutine(DialogueDuringGame());
             }
         }
     }
 
-    IEnumerator TutorialCoroutine()
+    public void StartNewDialogue(DialogueSO[] newDialogues)
     {
+        if (PlayerPrefs.HasKey(PlayerPrefsManager.CONST_TUTORIAL_KEY) &&
+            PlayerPrefs.GetInt(PlayerPrefsManager.CONST_TUTORIAL_KEY) == 0)
+        {
+            return ;
+        }
+        dialogues = newDialogues;
+        StartCoroutine(DialogueDuringGame());
+    }
+
+    IEnumerator DialogueDuringGame()
+    {
+        dialogueIndex = 0;
         pauseManager.Pause();
         isTutorialing = true;
         for (int i = 0; i < dialogues.Length; i++)

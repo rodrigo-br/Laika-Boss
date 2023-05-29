@@ -29,7 +29,6 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
     Rigidbody2D myRigidBody;
     public bool IsMainDimension { get; private set; }
     BulletHellShooter bulletHellShooter;
-    string PlayerPrefsNicoKey = "nico";
 
     #region Unity Methods
     void Awake()
@@ -46,7 +45,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
 
     void Start()
     {
-        PlayerPrefs.SetInt(PlayerPrefsNicoKey, 0);
+        PlayerPrefs.SetInt(PlayerPrefsManager.CONST_NICO_KEY, 0);
         Transform healthBarTransform = Instantiate(healthBarPrefab, new Vector3(0, 0.1f), Quaternion.identity);
         HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
         healthSystem = new HealthSystem(maxHealth);
@@ -150,7 +149,7 @@ public class Player : MonoBehaviour, IDamageable, ICollisive, IDimensionTraveler
 
     public void CallNico()
     {
-        PlayerPrefs.SetInt(PlayerPrefsNicoKey, 1);
+        PlayerPrefs.SetInt(PlayerPrefsManager.CONST_NICO_KEY, 1);
     }
 
 }

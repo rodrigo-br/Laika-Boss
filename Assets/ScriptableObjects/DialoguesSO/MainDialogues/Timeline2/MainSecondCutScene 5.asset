@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04b10091e531f7a4aa95ea6c552c864f, type: 3}
-  m_Name: MainFirstCutScene 12
+  m_Name: MainSecondCutScene 5
   m_EditorClassIdentifier: 
   actorName: Laika
   id: 1
   avatar: {fileID: 21300000, guid: 134b55429e2c0064a87604e766a6a28a, type: 3}
-  message: Just hold it steady for 5 human minutes.
+  message: 'Don''t worrie, I called Nico. He will help us! Just 1 more minut '

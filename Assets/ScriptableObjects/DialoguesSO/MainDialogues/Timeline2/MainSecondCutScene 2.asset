@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04b10091e531f7a4aa95ea6c552c864f, type: 3}
-  m_Name: MainFirstCutScene 2
+  m_Name: MainSecondCutScene 2
   m_EditorClassIdentifier: 
-  actorName: Laika
-  id: 1
-  avatar: {fileID: 21300000, guid: 134b55429e2c0064a87604e766a6a28a, type: 3}
-  message: Emily! How nice to hear a canine voice. I'm in trouble.
+  actorName: Emily
+  id: 0
+  avatar: {fileID: 21300000, guid: 557f65c6d1cbe6a4a9cf01022c205d68, type: 3}
+  message: Pretty easy! It's like givin a dog a bone

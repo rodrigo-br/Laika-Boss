@@ -14,6 +14,7 @@ public class BulletHellShooter : MonoBehaviour
 
     public void InstantiateBullets(Vector2 initialTarget)
     {
+        initialTarget *= -1;
         StartCoroutine(ShootingRoutine(initialTarget));
     }
 

@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TimerManager : MonoBehaviour
 {
+    public event EventHandler<int> OnTimeLineReached; 
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float currentTime;
+    [SerializeField] float[] timelines;
+    int timelineIndex = 0;
+    bool isPaused = false;
 
     void Start()
     {
@@ -17,16 +20,21 @@ public class TimerManager : MonoBehaviour
 
     void Update()
     {
-        currentTime -= Time.deltaTime;
-        if (currentTime <= 0)
+        if (!isPaused)
         {
-            timerText.color = Color.green;
-            timerText.text = "SUCCESS!";
-            gameObject.SetActive(false);
-            SceneManager.LoadScene(3);
-            return ;
+            currentTime -= Time.deltaTime;
+            CheckForTimelines();
+            SetTimerText();
         }
-        SetTimerText();
+    }
+
+    void CheckForTimelines()
+    {
+        if (timelineIndex < timelines.Length && currentTime <= timelines[timelineIndex])
+        {
+            OnTimeLineReached?.Invoke(this, timelineIndex);
+            timelineIndex++;
+        }
     }
 
     void SetTimerText()
@@ -34,4 +42,6 @@ public class TimerManager : MonoBehaviour
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
         timerText.text = time.ToString(@"mm\:ss\:ff");
     }
+
+    public void PauseTimer() => isPaused = true;
 }
