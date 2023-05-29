@@ -22,7 +22,6 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         tutorialImage = tutorial.GetComponentInChildren<Image>();
         nicosHelpImage = nicosHelp.GetComponentInChildren<Image>();
-        tutorialImage.color = nicosHelpImage.color = toggleColor;
     }
 
     void Start()
@@ -43,6 +42,8 @@ public class PlayerPrefsManager : MonoBehaviour
         {
             nicosHelp.isOn = PlayerPrefs.GetInt(CONST_NICOHELP_KEY) == 1 ? true : false;
         }
+        tutorialImage.color = tutorial.isOn == true ? toggleColor : Color.gray;
+        nicosHelpImage.color = nicosHelp.isOn == true ? toggleColor : Color.gray;
         musicSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(CONST_MUSIC_KEY, musicSlider.value));
         sfxSlider.onValueChanged.AddListener(_ => PlayerPrefs.SetFloat(CONST_SFX_KEY, sfxSlider.value));
         tutorial.onValueChanged.AddListener(_ => PlayerPrefs.SetInt(CONST_TUTORIAL_KEY, tutorial.isOn == true ? 1 : 0));
