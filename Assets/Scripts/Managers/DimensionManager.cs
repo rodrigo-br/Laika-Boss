@@ -6,7 +6,8 @@ using System;
 public class DimensionManager : MonoBehaviour
 {
     public event EventHandler<bool> OnDimensionChange;
-    [SerializeField] float changeCooldown = 5f;
+    [SerializeField] float changeCooldown = 10f;
+    [SerializeField] GameObject dimensionLight;
     public bool mainDimension { get; private set; } = true;
     bool isOnCooldown = false;
 
@@ -23,7 +24,9 @@ public class DimensionManager : MonoBehaviour
     IEnumerator CooldownRoutine()
     {
         isOnCooldown = true;
+        dimensionLight.SetActive(false);
         yield return new WaitForSecondsRealtime(changeCooldown);
         isOnCooldown = false;
+        dimensionLight.SetActive(true);
     }
 }
