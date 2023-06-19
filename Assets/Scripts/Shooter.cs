@@ -10,6 +10,7 @@ public class Shooter : MonoBehaviour, IDimensionTraveler
     [SerializeField] bool isMainDimension = true;
     public bool IsMainDimension { get => isMainDimension; }
     float fireCooldownDefaultValue;
+    float delayBeforestartAttacking = 1.5f;
     bool finishfireCooldown = true;
     bool isFiring;
     DimensionManager dimensionManager;
@@ -33,9 +34,7 @@ public class Shooter : MonoBehaviour, IDimensionTraveler
 
     void Start()
     {
-        dimensionManager.OnDimensionChange += DimensionManager_OnDimensionChange;
-        fireCooldownDefaultValue = fireCooldown;
-        DimensionChecker();
+        StartCoroutine(DelayBeforeStartAttacking());
     }
 
     void OnDisable()
@@ -73,5 +72,13 @@ public class Shooter : MonoBehaviour, IDimensionTraveler
         {
             IsFiring = (IsMainDimension == dimensionManager.mainDimension);
         }
+    }
+
+    IEnumerator DelayBeforeStartAttacking()
+    {
+        yield return new WaitForSeconds(delayBeforestartAttacking);
+        dimensionManager.OnDimensionChange += DimensionManager_OnDimensionChange;
+        fireCooldownDefaultValue = fireCooldown;
+        DimensionChecker();
     }
 }
